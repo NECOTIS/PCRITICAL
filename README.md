@@ -3,7 +3,6 @@ P-CRITICAL
 
 Adaptation of the CRITICAL plasticity rule, available at <https://github.com/NECOTIS/CRITICAL>, for neuromorphic devices.
 
-
 # Installation
 
 The required python packages are listed in requirements.txt, and can be installed with: 
@@ -55,3 +54,9 @@ display_spike_train(output_spikes[0].numpy())
 plt.show()
 
 ```
+
+# Acknowledgement
+
+© Copyright (August 2020) Ismael Balafrej, prof. Jean Rouat. University of Sherbrooke. [NEuro COmputational & Intelligent Signal Processing Research Group (NECOTIS)](http://www.gel.usherbrooke.ca/necotis/)
+
+<img src="images/necotis.png" width="250" /> <img src="images/UdeS.jpg" width="250" />
