@@ -223,4 +223,5 @@ class PCritical(nn.Module):
         self.refrac = fn(self.refrac)
         # self.sp = fn(self.sp)
         self.st = fn(self.st)
+        self.t = fn(self.t)
         return self

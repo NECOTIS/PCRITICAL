@@ -50,7 +50,7 @@ def collate_fn(samples):
     return batch, torch.tensor(labels)
 
 
-def main(seed=0x1B, num_cpus=6, num_threads_per_cpu=2):
+def main(seed=0x1B, pool_size=6, num_threads_per_cpu=2):
     torch.manual_seed(0)
     np.random.seed(0)
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
@@ -99,7 +99,7 @@ def main(seed=0x1B, num_cpus=6, num_threads_per_cpu=2):
     model[0].W_t = model[0].W_t.to_dense()
 
     torch.set_num_threads(num_threads_per_cpu)
-    with Pool(num_cpus) as p:
+    with Pool(pool_size) as p:
         training_set = NMnist(NMNIST_PATH, is_train=True, transforms=transforms)
         training_generator = data.DataLoader(training_set, **params)
 

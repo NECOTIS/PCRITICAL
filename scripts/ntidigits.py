@@ -60,7 +60,7 @@ def run_ntidigits(
     nb_iters: int,
     plasticity: bool = True,
     spectral_radius_norm: bool = False,
-    weight_decay: float = 1.0,
+    weight_decay: float = 0.0,
     readout_layer_type: ReadoutType = ReadoutType.TIME_BINNING,
     debug: bool = False,
 ):
@@ -121,7 +121,7 @@ def run_ntidigits(
         {
             "alpha": 1e-2,
             "stochastic_alpha": False,
-            "beta": 1e-5,
+            "beta": 1e-3,
             "tau_v": 30 * ms,
             "tau_i": 5 * ms,
             "tau_v_pair": 5 * ms,
@@ -162,12 +162,12 @@ def run_ntidigits(
     loss_fn = torch.nn.CrossEntropyLoss()
     lr = 0.001
     reporter.log_parameters(
-        {"optimizer": "AdamW", "weight_decay": weight_decay, "lr": lr}
+        {"optimizer": "Adam", "weight_decay": weight_decay, "lr": lr}
     )
-    optimizer = torch.optim.AdamW(
+    optimizer = torch.optim.Adam(
         linear_classifier.parameters(), lr=lr, weight_decay=weight_decay
     )
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)
+
     train_accuracy_for_iters = []
     val_accuracy_for_iters = []
 
@@ -285,7 +285,6 @@ def run_ntidigits(
             # Reset batch-norm parameters so we do use them for training
             linear_classifier[0].reset_running_stats()
 
-        scheduler.step()
         _logger.info(
             "Final accuracy at iter %i: %.4f", iter_nb, total_accurate / total_elems
         )
