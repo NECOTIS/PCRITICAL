@@ -100,7 +100,7 @@ if __name__ == "__main__":
 
     # Poincaré plot for binned t >= 2500
     fig, ax = plt.subplots(figsize=(16, 10))
-    bin_size = 10
+    bin_size = 5
     S = np.count_nonzero(
         input_less_reservoir_spike_train[2500:, excitatory_neurons], axis=1
     )
