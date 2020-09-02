@@ -106,13 +106,13 @@ def run_ntidigits(
     }
     train_set = NTidigits(
         DATASET_PATH,
-        train=True,
+        is_train=True,
         transforms=rec_array_to_spike_train,
         only_single_digits=True,
     )
     val_set = NTidigits(
         DATASET_PATH,
-        train=False,
+        is_train=False,
         transforms=rec_array_to_spike_train,
         only_single_digits=True,
     )
@@ -121,7 +121,7 @@ def run_ntidigits(
         {
             "alpha": 1e-2,
             "stochastic_alpha": False,
-            "beta": 1e-3,
+            "beta": 1e-5,
             "tau_v": 30 * ms,
             "tau_i": 5 * ms,
             "tau_v_pair": 5 * ms,
@@ -197,11 +197,13 @@ def run_ntidigits(
         """
         x = x.to(device)
         current_batch_size = x.shape[0]  # 1 if unbatchifier active
-        model[
-            1
-        ].batch_size = (
-            current_batch_size  # Will also reset neuron states (mem pot, cur)
-        )
+
+        if not debug:
+            model[
+                1
+            ].batch_size = (
+                current_batch_size  # Will also reset neuron states (mem pot, cur)
+            )
         duration = x.shape[-1]
         convert_layer.reset()
 
