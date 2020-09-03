@@ -113,6 +113,9 @@ if __name__ == "__main__":
     ax.plot(x, x, label="Model with $\sigma$ = 1", color="black")
     ax.set_xlabel("Normalized spike count at t")
     ax.set_ylabel("Normalized spike count at t+1")
+    ax.yaxis.set_label_coords(-0.1, 0.5)
+    ax.xaxis.set_label_coords(0.5, -0.1)
+
 
     ax.legend()
     plt.tight_layout()

@@ -22,16 +22,17 @@ if __name__ == "__main__":
 
     for i, freq in enumerate(freqs):
         ax2.plot(
-            np.arange(duration), torch[i], "-", color=colors[i], label="%i Hz" % freq
+            np.arange(duration), torch[i], "--", color=colors[i], label="%i Hz" % freq, dashes=(5, 8),
         )
         ax1.plot(
-            np.arange(duration), loihi[i], "--", color=colors[i], label="%i Hz" % freq
+            np.arange(duration), loihi[i], "-", color=colors[i], label="%i Hz" % freq
         )
 
     # plt.grid(True)
     # ax.set_title('Autoregulation of the averaged weight using the Paired CRITICAL plasticity rule\n with random poisson input (170 inputs for 512 neurons)', fontsize=22)
 
-    ax1.set_ylabel("Average weight", fontsize=22)
+    ax1.set_ylabel("Average weight on Loihi", fontsize=22)
+    ax2.set_ylabel("Average weight on PyTorch", fontsize=22)
     ax1.set_xlabel("Time [ms]", fontsize=22)
 
     # ax2.legend(loc='upper right')
@@ -48,10 +49,12 @@ if __name__ == "__main__":
     ]
     labels = list(map(lambda f: f"{f} Hz", freqs))
     labels += [
-        "PyTorch",
         "Loihi",
+        "PyTorch",
     ]
-    ax1.legend(lines, labels, loc="upper right", ncol=2)
+    leg = ax1.legend(lines, labels, loc="upper center", ncol=3)
+    for line in leg.get_lines():
+        line.set_linewidth(5.0)
 
     fig.tight_layout()
     fig.savefig("pcritical-weight-adaptation-for-poisson.eps")
