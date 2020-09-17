@@ -1,7 +1,7 @@
 P-CRITICAL
 ==========
 
-Adaptation of the CRITICAL plasticity rule, available at <https://github.com/NECOTIS/CRITICAL>, for neuromorphic devices.
+Adaptation of the CRITICAL plasticity rule, available at <https://github.com/NECOTIS/CRITICAL>, for neuromorphic devices. This is the code for the preprint available at <https://arxiv.org/pdf/2009.05593.pdf>.
 
 # Installation
 
