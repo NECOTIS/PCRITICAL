@@ -55,7 +55,7 @@ plt.show()
 
 ```
 
-# Acknowledgement
+# Acknowledgements
 
 © Copyright (August 2020) Ismael Balafrej, prof. Jean Rouat. University of Sherbrooke. [NEuro COmputational & Intelligent Signal Processing Research Group (NECOTIS)](http://www.gel.usherbrooke.ca/necotis/)
 
