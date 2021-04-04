@@ -60,7 +60,7 @@ def run_ntidigits(
     nb_iters: int,
     plasticity: bool = True,
     spectral_radius_norm: bool = False,
-    weight_decay: float = 0.0,
+    weight_decay: float = 0.,
     readout_layer_type: ReadoutType = ReadoutType.TIME_BINNING,
     debug: bool = False,
 ):
@@ -121,12 +121,13 @@ def run_ntidigits(
         {
             "alpha": 1e-2,
             "stochastic_alpha": False,
-            "beta": 1e-3,
+            "beta": 1e-5,
             "tau_v": 30 * ms,
-            "tau_i": 5 * ms,
+            "tau_i": 1 * ms,
             "tau_v_pair": 5 * ms,
             "tau_i_pair": 0 * ms,
             "v_th": 1,
+            "refractory_period": 2 * ms,
         }
     )
 
@@ -160,7 +161,7 @@ def run_ntidigits(
         device
     )
     loss_fn = torch.nn.CrossEntropyLoss()
-    lr = 0.001
+    lr = 1e-3
     reporter.log_parameters(
         {"optimizer": "Adam", "weight_decay": weight_decay, "lr": lr}
     )
@@ -299,8 +300,8 @@ def main(
     debug=False,
     plasticity=True,
     spectral_radius=False,
-    nb_iters=20,
-    weight_decay=1.0,
+    nb_iters=10,
+    weight_decay=0.0,
 ):
     random.seed(seed)
     np.random.seed(seed)
@@ -313,7 +314,7 @@ def main(
     # Init logging
     reporter.init(
         "pcritical",
-        backend=reporter.Backend.Logging | reporter.Backend.Comet,
+        backend=reporter.Backend.Logging,
         debug=debug,
     )
     reporter.log_parameter("seed", seed)

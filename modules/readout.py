@@ -59,7 +59,7 @@ class ExponentialFilterLayer(ReservoirReadout):
     def number_of_features(self) -> int:
         return self.nb_of_neurons
 
-    def forward(self, spikes, time, /, duration, **_):
+    def forward(self, spikes, time, duration, **_):
         if self.filter_output is None:
             self.filter_output = torch.zeros(
                 spikes.shape[0],
